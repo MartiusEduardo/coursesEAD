@@ -1,0 +1,97 @@
+@model CourseInfoViewModel
+
+@{
+    <script src="../js/ckeditor/ckeditor.js"></script>
+    <script>
+        UPLOADCARE_PUBLIC_KEY = 'f76861cb9bed0b90d168';
+    </script>
+}
+
+@await Html.PartialAsync("_StatusMessage", Model.StatusMessage)
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                @Html.ActionLink("Back", "listarCursos", "Course", new {}, new { @class="btn btn-default"})
+                <p></p>
+                @using (Html.BeginForm("UpdateCourse", "Course", FormMethod.Post, new { @class = "form-horizontal form-material", role = "form", enctype = "multipart/form-data" })) {
+                    <div asp-validation-summary="All" class="text-danger"></div>
+                    @Html.HiddenFor(a => a.Course.idCourse)
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            <img src="@Model.imgSrc" style="display:block; width:50%;">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <label class="col-md-12" asp-for="Course.Image"></label>
+                            <div class="col-sm-12">
+                                <div class="fileinput fileinput-new input-group" data-provides="fileinput">
+                                    <div class="form-control" data-trigger="fileinput"> <i class="glyphicon glyphicon-file fileinput-exists"></i> <span class="fileinput-filename"></span></div> <span class="input-group-addon btn btn-default btn-file"> <span class="fileinput-new">Select file</span> <span class="fileinput-exists">Change</span>
+                                    <input name="coursephoto" type="file" id="coursephoto"  accept=".png,.jpg,.jpeg,.gif,.tif"> </span> <a href="#" class="input-group-addon btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a></div>
+                                    <span asp-validation-for="Course.Image" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-12" asp-for="Course.CourseName"></label>
+                        <div class="col-md-12">
+                            <input asp-for="Course.CourseName" type="text" class="form-control form-control-line">
+                            <span asp-validation-for="Course.CourseName" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-12" asp-for="Course.ProfessorName"></label>
+                        <div class="col-md-12">
+                            <input asp-for="Course.ProfessorName" type="text" class="form-control form-control-line">
+                            <span asp-validation-for="Course.ProfessorName" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-12" asp-for="Course.Price"></label>
+                        <div class="col-md-12">
+                            <input asp-for="Course.Price" type="text" class="form-control form-control-line">
+                            <span asp-validation-for="Course.Price" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-12" asp-for="Course.About"></label>
+                        <div class="col-md-12">
+                            <textarea asp-for="Course.About" id="About" class="form-control form-control-line"></textarea>
+                            <script>
+                                CKEDITOR.replace( 'About', {
+                                    extraPlugins: 'dialogui,dialog,a11yhelp,dialogadvtab,basicstyles,bidi,blockquote,notification,button,toolbar,clipboard,panelbutton,panel,floatpanel,colorbutton,colordialog,templates,menu,contextmenu,copyformatting,div,resize,elementspath,enterkey,entities,popup,filetools,filebrowser,find,fakeobjects,flash,floatingspace,listblock,richcombo,font,forms,format,horizontalrule,htmlwriter,iframe,wysiwygarea,image,indent,indentblock,indentlist,smiley,justify,menubutton,language,link,list,liststyle,magicline,maximize,newpage,pagebreak,pastetext,pastefromword,preview,print,removeformat,save,selectall,showblocks,showborders,sourcearea,specialchar,scayt,stylescombo,tab,table,tabletools,tableselection,undo,lineutils,widgetselection,widget,notificationaggregator,uploadwidget,uploadimage,wsc,chart,pbckcode,uploadcare,FMathEditor',
+                                    height: 400
+                                } );
+                            </script>
+                            <span asp-validation-for="Course.About" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <button onclick="return confirm('Are you sure you want to update the course?');" type="submit" class="btn btn-success"> <i class="fa fa-check"></i> Save</button>
+                        </div>
+                    </div>
+                }
+                <a href="@Url.Action("inserirArea", "Area", new {idCourse = @Model.Course.idCourse})" type="button" class="btn btn-info"><i class="fa fa-plus-circle"></i> Add Area</a>
+                <p></p>
+                <table class="table table-bordered table-striped table-hover">
+                    <tr class="text-nowrap tb-titulo-azul-branco">
+                        <th class="text-center" colspan="4">Areas</th>
+                    </tr>
+                    @foreach (var area in this.Model.Areas) {
+                        if (area.idCourse == @Model.Course.idCourse) {
+                            <tr class="text-nowrap">
+                                <col width="100%">
+                                <td style="background-color: white">@area.NomeArea</td>
+                                <td style="background-color: white" class="text-center">@Html.ActionLink("See Details", "VerDetalhes", "Area", new { idArea = @area.idArea}, new { @class="btn btn-primary"})</td>
+                                <td style="background-color: white" class="text-center">@Html.ActionLink("Edit", "GetAreaToUpdate", "Area", new { idArea = @area.idArea}, new { @class="btn btn-warning"})</td>
+                                <td style="background-color: white" class="text-center">@Html.ActionLink("Delete", "DeletarArea", "Area", new { idArea = @area.idArea}, new { @class="btn btn-danger", onclick="return confirm('Are you sure you want to delete the area?');"})</td>
+                            </tr>
+                        }
+                    }
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

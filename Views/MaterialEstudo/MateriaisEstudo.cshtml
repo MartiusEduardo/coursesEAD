@@ -1,0 +1,68 @@
+@model List<Simulacao.Models.MaterialEstudo>
+
+@{
+    <link href="~/eliteadmin/assets/node_modules/nestable/nestable.css" rel="stylesheet" type="text/css" />
+    <script>
+        function saveOrder() {
+            if(confirm("Are you sure you want to update the order?")) {
+                var ordem = [];
+                var idMaterialEstudo = [];
+                $('li').each(function(index) {
+                    if($(this).attr('class') == "dd-item") {
+                        ordem[index] = $(this).attr('data-id');
+                        idMaterialEstudo[index] = $(this).attr('data-idMaterial');
+                    }
+                });
+                $.ajax({  
+                    type: 'POST',  
+                    url: '@Url.Action("SaveOrder", "MaterialEstudo")',
+                    async: false,
+                    dataType: 'json',
+                    data: { ordem: ordem, idMaterialEstudo: idMaterialEstudo }
+                });
+                alert("The order of coursewares has been updated.");
+            }
+            return false;
+        }
+    </script>
+}
+
+<div class="row page-titles">
+    <div class="col-md-5 align-self-center">
+        <h4 class="text-themecolor">Courseware</h4>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-body">
+                @await Html.PartialAsync("_StatusMessage", "")
+
+                @Html.ActionLink("Back", "Index", "MaterialEstudo", new {}, new { @class="btn btn-default"}) <a href="@Url.Action("InserirMaterial", "MaterialEstudo", new {idCourse = @ViewData["idCourse"], idSubarea = @ViewData["idSubarea"]})" type="button" class="btn btn-info"><i class="fa fa-plus-circle"></i> Add Courseware</a>
+                <p></p>
+                <table class="table table-bordered table-striped table-hover">
+                    <tr class="text-nowrap tb-titulo-azul-branco">
+                        <th class="text-center" colspan="4">Study Materials</th>
+                    </tr>
+                </table>
+                <div class="dd myadmin-dd-empty" id="nestable2">
+                    <ol class="dd-list">
+                        @foreach (var material in this.Model) {
+                            <li id="item" class="dd-item" data-id="@material.Ordem" data-idMaterial="@material.idMaterialEstudo">
+                                <div class="dd-handle dd3-handle"></div>
+                                <div class="dd3-content">@material.Titulo
+                                    <div class="btn-group" style="float: right" role="group" aria-label="Basic example">
+                                        @Html.ActionLink("See Details", "VerDetalhes", new { idMaterialEstudo = @material.idMaterialEstudo}, new { @class="btn btn-primary btn-xs"})
+                                        @Html.ActionLink("Edit", "GetMaterialToUpdate", new { idMaterialEstudo = @material.idMaterialEstudo}, new { @class="btn btn-warning btn-xs"})
+                                        @Html.ActionLink("Delete", "DeletarMaterial", new { idMaterialEstudo = @material.idMaterialEstudo}, new { @class="btn btn-danger btn-xs", onclick="return confirm('Are you sure you want to delete the courseware?');"})
+                                    </div>
+                                </div>
+                            </li>
+                        }
+                    </ol>
+                </div>
+                <button class="btn btn-info" onclick="saveOrder()">Save Order</button>
+            </div>
+        </div>
+    </div>
+</div>

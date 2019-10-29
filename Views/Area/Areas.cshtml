@@ -1,0 +1,29 @@
+@model List<Simulacao.Models.Area>
+<html>
+    <body>
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        @Html.ActionLink("Back", "Dashboard", "Home", new {}, new { @class="btn btn-default"}) <a href="@Url.Action("inserirArea", "Area")" type="button" class="btn btn-info"><i class="fa fa-plus-circle"></i> Add Area</a>
+                        <p></p>
+                        <table class="table table-bordered table-striped table-hover">
+                            <tr class="text-nowrap tb-titulo-azul-branco">
+                                <th class="text-center" colspan="4">Areas</th>
+                            </tr>
+                            @foreach (var area in this.Model) {
+                                <tr class="text-nowrap">
+                                    <col width="100%">
+                                    <td style="background-color: white">@area.NomeArea</td>
+                                    <td style="background-color: white" class="text-center">@Html.ActionLink("See Details", "VerDetalhes", new { idArea = @area.idArea}, new { @class="btn btn-primary"})</td>
+                                    <td style="background-color: white" class="text-center">@Html.ActionLink("Edit", "GetAreaToUpdate", new { idArea = @area.idArea}, new { @class="btn btn-warning"})</td>
+                                    <td style="background-color: white" class="text-center">@Html.ActionLink("Delete", "DeletarArea", new { idArea = @area.idArea}, new { @class="btn btn-danger", onclick="return confirm('Are you sure you want to delete the area?');"})</td>
+                                </tr>
+                            }
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

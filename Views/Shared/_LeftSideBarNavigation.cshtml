@@ -1,0 +1,15 @@
+<aside class="left-sidebar">
+    <!-- Sidebar scroll-->
+    <div class="scroll-sidebar">
+        <!-- Sidebar navigation-->
+        <nav class="sidebar-nav">
+            <ul id="sidebarnav">
+                <li class="nav-small-cap">--- @ViewData["CourseName"]</li>
+                <li><a class="waves-effect waves-dark" href="@Url.Action("StartCourse", "Enrollment", new {idCourse = @ViewData["idCourse"]})"><i class="fa fa-bars"></i><span class="hide-menu">Course</span></a></li>
+                <li><a class="waves-effect waves-dark" href="@Url.Action("Discussion", "Enrollment", new {idCourse = @ViewData["idCourse"]})"><i class="ti-layout-media-right-alt"></i><span class="hide-menu">Discussion</span></a></li>
+            </ul>
+        </nav>
+        <!-- End Sidebar navigation -->
+    </div>
+    <!-- End Sidebar scroll-->
+</aside>

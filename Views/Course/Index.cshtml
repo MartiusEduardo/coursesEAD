@@ -1,0 +1,7 @@
+@model List<CourseViewModel>
+<div class="row page-titles">
+    <div class="col-md-5 align-self-center">
+        <h4 class="text-themecolor">Courses</h4>
+    </div>
+</div>
+@await Html.PartialAsync("_CoursesPartial", Model)

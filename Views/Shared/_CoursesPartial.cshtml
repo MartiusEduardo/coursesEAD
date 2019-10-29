@@ -1,0 +1,108 @@
+@model List<CourseViewModel>
+
+@inject SignInManager<ApplicationUser> SignInManager
+
+@if (SignInManager.IsSignedIn(User)) {
+<div class="row">
+	@foreach (var course in this.Model) {
+		<div class="col-md-3">
+			<img class="img-responsive" alt="user" src="@course.imgSrc">
+			<div class="card">
+				<div class="card-body">
+					<h5 class="card-title">@course.CourseName</h5>
+					<div class="d-flex no-block align-items-center">
+						<span><i class="ti-alarm-clock"></i> Price: @course.Price</span>
+					</div>
+					<div class="d-flex no-block align-items-center p-t-10">
+						<span><i class="ti-user"></i> Professor Name: @course.ProfessorName</span>
+					</div>
+					@Html.ActionLink("More Details", "CourseInfo", "Course", new {idCourse = @course.idCourse}, new { @class="btn btn-success btn-rounded waves-effect waves-light m-t-30"})
+				</div>
+			</div>
+		</div>
+	}
+</div>
+} else {
+<div class="courses">
+	<div class="courses_background"></div>
+	<div class="container">
+		@if((string)@ViewData["Controller"] == "1") {
+		<div class="row">
+			<div class="col">
+				<h2 class="section_title text-center">Online Courses</h2>
+			</div>
+		</div>
+		}
+		<div class="row courses_row">
+			<!-- Course -->
+			<div class="col-lg-4 course_col">
+				<div class="course">
+					<div class="course_image"><img src="../lingua/images/forklift-835340.jpg" alt="" style="width:100%; height:180px;"></div>
+					<div class="course_body">
+						<div class="course_title">@Html.ActionLink("Inventory Management", "GestaoEstoques", "Home", new {idArea = 3})</div>
+						<div class="course_info">
+							<ul>
+								<li><a href="#">Otacilio</a></li>
+							</ul>
+						</div>
+						<div class="course_text">
+							<p>Inventory management is all about having the right inventory at the right quantity, in the right place, at the right time, and at the right cost. But how do you implement the best inventory management techniques to ensure the best results?</p>
+						</div>
+					</div>
+					<div class="course_footer d-flex flex-row align-items-center justify-content-start">
+						<div class="course_students"><i class="fa fa-user" aria-hidden="true"></i><span>10</span></div>
+						<div class="course_rating ml-auto"><i class="fa fa-star" aria-hidden="true"></i><span>4,5</span></div>
+						<div class="course_mark course_free trans_200"><a asp-area="" asp-controller="Account" asp-action="Login">Free</a></div>
+					</div>
+				</div>
+			</div>
+
+			<!-- Course -->
+			<div class="col-lg-4 course_col">
+				<div class="course">
+					<div class="course_image"><img src="../lingua/images/logistics-3125131.jpg" alt="" style="width:100%; height:180px;"></div>
+					<div class="course_body">
+						<div class="course_title">@Html.ActionLink("Logistics and Supply Chain Management", "GestaoEstoques", "Home", new {idArea = 2})</div>
+						<div class="course_info">
+							<ul>
+								<li><a href="#">Otacilio</a></li>
+							</ul>
+						</div>
+						<div class="course_text">
+							<p>Is Logistics the Same as Supply Chain Management?</p>
+						</div>
+					</div>
+					<div class="course_footer d-flex flex-row align-items-center justify-content-start">
+						<div class="course_students"><i class="fa fa-user" aria-hidden="true"></i><span>10</span></div>
+						<div class="course_rating ml-auto"><i class="fa fa-star" aria-hidden="true"></i><span>4,5</span></div>
+						<div class="course_mark course_free trans_200"><a asp-area="" asp-controller="Account" asp-action="Login">Free</a></div>
+					</div>
+				</div>
+			</div>
+
+			<!-- Course -->
+			<div class="col-lg-4 course_col">
+				<div class="course">
+					<div class="course_image"><img src="../lingua/images/industry-2633878.jpg" alt="" style="width:100%; height:180px;"></div>
+					<div class="course_body">
+						<div class="course_title">@Html.ActionLink("Organizational Learning", "GestaoEstoques", "Home", new {idArea = 1})</div>
+						<div class="course_info">
+							<ul>
+								<li><a href="#">Martius Rodriguez</a></li>
+							</ul>
+						</div>
+						<div class="course_text">
+							<p>Is the process of creating, retaining, and transferring knowledge within an organization.</p>
+						</div>
+					</div>
+					<div class="course_footer d-flex flex-row align-items-center justify-content-start">
+						<div class="course_students"><i class="fa fa-user" aria-hidden="true"></i><span>10</span></div>
+						<div class="course_rating ml-auto"><i class="fa fa-star" aria-hidden="true"></i><span>4,5</span></div>
+						<div class="course_mark trans_200"><a asp-area="" asp-controller="Account" asp-action="Login">$45</a></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+}

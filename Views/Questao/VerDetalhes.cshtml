@@ -1,0 +1,40 @@
+@model Simulacao.Models.QuestaoViewModel
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                @Html.ActionLink("Back", "listarPerguntas", "Questao", new {idCourse = @Model.Course.idCourse, idSubarea = @Model.Subarea.idSubarea}, new { @class="btn btn-default"})
+                <p></p>
+                <div class = "form-horizontal form-material">
+                    <div class="form-group">
+                        <label class="col-md-12">Area</label>
+                        <div class="col-md-12">
+                            <input value="@Model.Area.NomeArea" type="text" class="form-control form-control-line" disabled>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-12">Subarea</label>
+                        <div class="col-md-12">
+                            <input value="@Model.Subarea.NomeSubarea" type="text" class="form-control form-control-line" disabled>
+                        </div>
+                    </div>
+                </div>
+                <table class="table table-bordered" align="center">
+                    <tr class="tb-titulo-azul-branco"><td colspan="3">@Html.Label("Question: ") @Model.Questao.Pergunta</td></tr>
+                    <tr>
+                        <td>@Html.Label("Answer")</td>
+                        <td>@Html.Label("Correct?")</td>
+                        <td>@Html.Label("Explanation")</td>
+                    </tr>
+                    @foreach (var resposta in this.Model.Respostas) {
+                        <tr>
+                            <td>@resposta.NomeResposta</td>
+                            <td>@resposta.Correta</td>
+                            <td>@resposta.Explicacao</td>
+                        </tr>
+                    }
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

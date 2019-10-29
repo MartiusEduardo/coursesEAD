@@ -1,0 +1,39 @@
+@model Topic
+
+@inject UserManager<ApplicationUser> UserManager
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                @Html.ActionLink("Back", "ListTopicsPerCategory", "Topic", new {idCourse = @ViewData["idCourse"]}, new { @class="btn btn-default"})
+                <p></p>
+                @using (Html.BeginForm("CreateTopic", "Topic", FormMethod.Post, new { @class = "form-horizontal form-material", role = "form"})) {
+                    @Html.Hidden("idUser", @UserManager.GetUserId(User))
+                    @Html.Hidden("idCategory", @ViewData["idCategory"])
+                    <div class="form-group">
+                        <label class="col-md-12" asp-for="Name"></label>
+                        <div class="col-md-12">
+                            <input asp-for="Name" type="text" class="form-control form-control-line">
+                            <span asp-validation-for="Name" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-12" asp-for="Description"></label>
+                        <div class="col-md-12">
+                            <input asp-for="Description" type="text" class="form-control form-control-line">
+                            <span asp-validation-for="Description" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-12" asp-for="DateRegister"></label>
+                        <div class="col-md-12">
+                            <input asp-for="DateRegister" type="text" value="@DateTime.Today" readonly="readonly" class="form-control form-control-line">
+                            <span asp-validation-for="DateRegister" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <input onclick="return confirm('Are you sure you want create a new topic?');" type="submit" value="Create" class="btn btn-info"/>
+                }
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,64 @@
+@model StepCourseViewModel
+
+@{
+    var nextDisabled = !Model.Subareas.HasNextPage ? "display: none;" : "";
+    var previousDisabled = !Model.Subareas.HasPreviousPage ? "display: none;" : "";
+
+    <script>
+        function mudarPagina(idCourse, pagina) {
+            document.getElementById("page").setAttribute("value", pagina);
+            document.getElementById("idCourse").setAttribute("value", idCourse);
+        }
+    </script>
+}
+@using (Html.BeginForm("Course", "Enrollment", FormMethod.Post, new { @class = "tab-wizard wizard-circle", role = "form" })) {
+    <div class="row page-titles">
+        <div class="col-md-5 align-self-center">
+            <input id="previous" onclick="mudarPagina(@Model.Course.idCourse, @(Model.Subareas.PageIndex - 1))" class="btn btn-info" style="@previousDisabled" type="submit" value="Previous"/>
+            <input id="proximo" onclick="mudarPagina(@Model.Course.idCourse, @(Model.Subareas.PageIndex + 1))" class="btn btn-info" style="@nextDisabled" type="submit" value="Next"/>
+        </div>
+        <div class="col-md-7 align-self-center">
+            <div class="d-flex justify-content-end align-items-center">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item">@Html.ActionLink(@Model.Area.NomeArea, "StartCourse", "Enrollment", new {idCourse = @Model.Course.idCourse})</li>
+                    <li class="breadcrumb-item active">@Model.Subareas[0].NomeSubarea</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                @Html.Hidden("page")
+                @Html.Hidden("idCourse")
+                <ul class="nav nav-tabs customtab" role="tablist">
+                    @foreach (var material in @Model.StudyMaterials) {                        
+                        if (material.idMaterialEstudo == @Model.StudyMaterials.First().idMaterialEstudo) {
+                            <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#@material.idMaterialEstudo" role="tab"><span class="hidden-sm-up"><i class="ti-book" data-toggle="tooltip" title="@material.Titulo"></i></span> <span class="hidden-xs-down"></span></a> </li>
+                        } else {
+                            <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#@material.idMaterialEstudo" role="tab"><span class="hidden-sm-up"><i class="ti-book" data-toggle="tooltip" title="@material.Titulo"></i></span> <span class="hidden-xs-down"></span></a> </li>
+                        }
+                    }
+                </ul>
+                <!-- Tab panes -->
+                <div class="tab-content">
+                    @foreach (var material in @Model.StudyMaterials) {
+                        if (material.idMaterialEstudo == @Model.StudyMaterials.First().idMaterialEstudo) {
+                            <div class="tab-pane active" id="@material.idMaterialEstudo" role="tabpanel">
+                                <div class="p-20">
+                                    @Html.Raw(@material.DescricaoConteudo)
+                                </div>
+                            </div>
+                        } else {
+                            <div class="tab-pane" id="@material.idMaterialEstudo" role="tabpanel">
+                                <div class="p-20">
+                                    @Html.Raw(@material.DescricaoConteudo)
+                                </div>
+                            </div>
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+}

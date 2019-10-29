@@ -1,0 +1,85 @@
+@model CoursesViewModel
+@{
+    <script>
+        function filtrarAreas(obj) {;              
+            $.ajax({  
+                type: 'POST',  
+                url: '@Url.Action("filtrarAreas", "Questao")',
+                async: false,
+                dataType: 'json',
+                data: { idCourse: obj.value },  
+                success: function (areas) {
+                    $("#idArea").empty();
+                    $("#idArea").append('<option value="0">Choose an area</option>');
+                    $.each(areas, function (i, area) {
+                        $("#idArea").append('<option value="' + area.value + '">' + area.text + '</option>');  
+                    });
+                    $("#btnEditQuestion").attr('disabled', 'true');
+                },  
+                error: function (ex) {
+                    alert('Failed to retrieve areas.' + ex);  
+                }  
+            });  
+            return false; 
+        }
+        function filtrarSubareas(obj) {;              
+            $.ajax({  
+                type: 'POST',  
+                url: '@Url.Action("filtrarSubareas", "Questao")',
+                async: false,
+                dataType: 'json',
+                data: { idArea: obj.value },  
+                success: function (subareas) {
+                    if (obj.value != 0) {
+                        $("#btnEditQuestion").removeAttr('disabled');
+                        $("#idSubarea").empty();
+                        $.each(subareas, function (i, subarea) {
+                            $("#idSubarea").append('<option value="' + subarea.value + '">' + subarea.text + '</option>');  
+                        });
+                    } else {
+                        $("#btnEditQuestion").attr('disabled', 'true');
+                    }
+                },  
+                error: function (ex) {
+                    alert('Failed to retrieve areas.' + ex);  
+                }  
+            });  
+            return false; 
+        }
+    </script>
+}
+<html>
+    <body>
+        <div class="col-12">
+		    <div class="card">
+			    <div class="card-body">
+                    @Html.ActionLink("Back", "Dashboard", "Home", new {}, new { @class="btn btn-default"})
+                    <p></p>
+                    @using (Html.BeginForm("ListarMaterial", "MaterialEstudo", FormMethod.Post, new { @class = "form-horizontal form-material", role = "form", enctype = "multipart/form-data"})) {
+                    <div asp-validation-summary="All" class="text-danger"></div>
+                    <p style="color:red;">@ViewData["Erro"]</p>
+                    <div class="form-group">
+                        <label class="col-md-12">Course</label>
+                        <div class="col-md-12">
+                            @Html.DropDownList("idCourse", new SelectList(@Model.Courses, "idCourse", "CourseName"), "Choose a course", new {@class="form-control", @onchange="filtrarAreas(this)"})
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-12">Area</label>
+                        <div class="col-md-12">
+                            @Html.DropDownList("idArea", new SelectList(@Model.Areas, "idArea", "NomeArea"), "Choose an area", new {@class="form-control", @onchange="filtrarSubareas(this)"})
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-12">Subarea</label>
+                        <div class="col-md-12">
+                            @Html.DropDownList("idSubarea", new SelectList(@Model.Subareas, "idSubarea", "NomeSubarea"), "Choose a subarea", new {@class="form-control"})
+                        </div>
+                    </div>
+                    <input id="btnEditQuestion" class="btn btn-primary" type="submit" value="Edit Courseware" disabled/>
+                    }
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,28 @@
+@model Area
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                @Html.ActionLink("Back", "GetCourseToUpdate", "Course", new {idCourse = @ViewData["idCourse"]}, new { @class="btn btn-default"})
+                <p></p>
+                @using (Html.BeginForm("CriarArea", "Area", FormMethod.Post, new { @class = "form-horizontal form-material", role = "form"})) {
+                    <div asp-validation-summary="All" class="text-danger"></div>
+                    @Html.Hidden("idCourse", @ViewData["idCourse"])
+                    <div class="form-group">
+                        <label class="col-md-12" asp-for="NomeArea"></label>
+                        <div class="col-md-12">
+                            <input asp-for="NomeArea" type="text" class="form-control form-control-line">
+                            <span asp-validation-for="NomeArea" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <button onclick="return confirm('Are you sure you want to add a new area?');" type="submit" class="btn btn-info">Add Area</button>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>

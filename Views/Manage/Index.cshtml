@@ -1,0 +1,164 @@
+﻿@model IndexViewModel
+@{
+    ViewData.AddActivePage(ManageNavPages.Index);
+}
+@await Html.PartialAsync("_StatusMessage", Model.StatusMessage)
+<div class="row">
+    <div class="col-lg-4 col-xlg-3 col-md-5">
+        <div class="card">
+            <div class="card-body">
+                <center class="m-t-30"> <img src="@Html.DisplayFor(u => u.UserPhoto)" class="img-circle" width="150" />
+                    <h4 class="card-title m-t-10">@Html.DisplayFor(u => u.FullName)</h4>
+                    <h6 class="card-subtitle"></h6>
+                </center>
+            </div>
+            <div>
+                <hr> </div>
+            <div class="card-body"> <small class="text-muted">Email address </small>
+                <h6>@Html.DisplayFor(u => u.Email)</h6> <small class="text-muted p-t-30 db">Phone</small>
+                <h6>@Html.DisplayFor(u => u.PhoneNumber)</h6> <small class="text-muted p-t-30 db">Address</small>
+                <h6>@Html.DisplayFor(u => u.Address)</h6>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-8 col-xlg-9 col-md-7">
+        <div class="card">
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs profile-tab" role="tablist">
+                <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#profile" role="tab">Profile</a> </li>
+                <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#settings" role="tab">Settings</a> </li>
+            </ul>
+            <!-- Tab panes -->
+            <div class="tab-content">
+                <!--second tab-->
+                <div class="tab-pane active" id="profile" role="tabpanel">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-3 col-xs-6 b-r"> <strong>Full Name</strong>
+                                <br>
+                                <p class="text-muted">@Html.DisplayFor(u => u.FullName)</p>
+                            </div>
+                            <div class="col-md-3 col-xs-6 b-r"> <strong>Phone</strong>
+                                <br>
+                                <p class="text-muted">@Html.DisplayFor(u => u.PhoneNumber)</p>
+                            </div>
+                            <div class="col-md-3 col-xs-6 b-r"> <strong>Email</strong>
+                                <br>
+                                <p class="text-muted">@Html.DisplayFor(u => u.Email)</p>
+                            </div>
+                            <div class="col-md-3 col-xs-6"> <strong>Location</strong>
+                                <br>
+                                <p class="text-muted">@Html.DisplayFor(u => u.Location)</p>
+                            </div>
+                        </div>
+                        <hr>
+                        <p class="m-t-30">@Html.DisplayFor(u => u.ProfessionalSummary)</p>
+                    </div>
+                </div>
+                <div class="tab-pane" id="settings" role="tabpanel">
+                    <div class="card-body">
+                        @using (Html.BeginForm("Index", "Manage", FormMethod.Post, new { @class = "form-horizontal form-material m-t-40", role = "form", enctype = "multipart/form-data" })) {
+                            <div asp-validation-summary="All" class="text-danger"></div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <label class="col-md-12" asp-for="UserPhoto"></label>
+                                    <div class="col-sm-12">
+                                        <div class="fileinput fileinput-new input-group" data-provides="fileinput">
+                                            <div class="form-control" data-trigger="fileinput"> <i class="glyphicon glyphicon-file fileinput-exists"></i> <span class="fileinput-filename"></span></div> <span class="input-group-addon btn btn-default btn-file"> <span class="fileinput-new">Select file</span> <span class="fileinput-exists">Change</span>
+                                            <input name="userphoto" type="file" id="userphoto" accept=".png,.jpg,.jpeg,.gif,.tif"> </span> <a href="#" class="input-group-addon btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a></div>
+                                            <span asp-validation-for="UserPhoto" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Delete Photo </label> @Html.CheckBox("deletephoto", false)
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-12" asp-for="FullName"></label>
+                                <div class="col-md-12">
+                                    <input asp-for="FullName" type="text" class="form-control form-control-line">
+                                    <span asp-validation-for="FullName" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-12" asp-for="Username"></label>
+                                <div class="col-md-12">
+                                    <input asp-for="Username" type="text" class="form-control form-control-line" disabled>
+                                    <span asp-validation-for="Username" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Identity" class="col-md-12"></label>
+                                <div class="col-md-12">
+                                    <input asp-for="Identity" type="text" class="form-control form-control-line" id="identity">
+                                    <span asp-validation-for="Identity" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="DateOfBirth" class="col-md-12"></label>
+                                <div class="col-md-12">
+                                    <input asp-for="DateOfBirth" type="date" class="form-control form-control-line" id="identity">
+                                    <span asp-validation-for="DateOfBirth" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Email" class="col-md-12"></label>
+                                <div class="col-md-12">
+                                    @if (Model.IsEmailConfirmed)
+                                    {
+                                        <div class="input-group">
+                                            <input asp-for="Email" class="form-control" />
+                                            <span class="input-group-addon" aria-hidden="true"><span class="glyphicon glyphicon-ok text-success"></span></span>
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <input asp-for="Email" class="form-control" />
+                                        <button asp-action="SendVerificationEmail" class="btn btn-link">Send verification email</button>
+                                    }
+                                    <span asp-validation-for="Email" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-12" asp-for="PhoneNumber"></label>
+                                <div class="col-md-12">
+                                    <input asp-for="PhoneNumber" type="text" class="form-control form-control-line">
+                                    <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-12" asp-for="ProfessionalSummary"></label>
+                                <div class="col-md-12">
+                                    <textarea asp-for="ProfessionalSummary" rows="5" class="form-control form-control-line"></textarea>
+                                    <span asp-validation-for="ProfessionalSummary" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Location" class="col-md-12"></label>
+                                <div class="col-md-12">
+                                    <input asp-for="Location" type="text" class="form-control form-control-line" id="location">
+                                    <span asp-validation-for="Location" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Address" class="col-md-12"></label>
+                                <div class="col-md-12">
+                                    <input asp-for="Address" type="text" class="form-control form-control-line" id="address">
+                                    <span asp-validation-for="Address" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-12">
+                                    <button type="submit" class="btn btn-info">Update Profile</button>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+}

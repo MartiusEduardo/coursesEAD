@@ -1,0 +1,14 @@
+<html>
+    <body>
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h1>@ViewData["Atualizado"]</h1>
+                        @Html.ActionLink("Back", "GetCategoryToUpdate", "Category", new { idCategory = @ViewData["IdCategory"]}, new { @class="btn btn-default"})
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

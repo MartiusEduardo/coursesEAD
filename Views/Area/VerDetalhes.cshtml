@@ -1,0 +1,26 @@
+@model Simulacao.Models.AreaViewModel
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                @Html.ActionLink("Back", "listarAreas", "Area", new {}, new { @class="btn btn-default"})
+                <p></p>
+                <div class="form-group">
+                    <b><label class="col-md-12" asp-for="Area.NomeArea"></label></b>
+                    <div class="col-md-12">
+                        @Html.DisplayFor(a => a.Area.NomeArea)
+                    </div>
+                </div>
+                <hr>
+                <table style="width:100%" class="table table-bordered" align="center">
+                    <tr class="tb-titulo-azul-branco text-center"><td>@Html.Label("Subareas: ")</td></tr>
+                    @foreach (var subarea in this.Model.Subareas) {
+                        <tr>
+                            <td>@subarea.NomeSubarea</td>
+                        </tr>
+                    }
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

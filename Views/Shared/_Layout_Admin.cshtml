@@ -1,0 +1,222 @@
+@inject SignInManager<ApplicationUser> SignInManager
+
+@{
+    <style>
+        .tb-titulo-azul-branco th,
+        .tb-titulo-azul-branco td {
+            color:white;
+            background-color: #004274;
+        }
+    </style>
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - International Institute of Management Certification</title>
+    
+    <environment include="Development">
+        <link href="~/eliteadmin/assets/node_modules/morrisjs/morris.css" rel="stylesheet">
+        <!--Toaster Popup message CSS -->
+        <link href="~/eliteadmin/assets/node_modules/toast-master/css/jquery.toast.css" rel="stylesheet">
+        <!-- Morris CSS -->
+        <link href="~/eliteadmin/assets/node_modules/morrisjs/morris.css" rel="stylesheet">
+        <!-- Custom CSS -->
+        <link href="~/eliteadmin/university/dist/css/style.min.css" rel="stylesheet">
+        <!-- Dashboard 1 Page CSS -->
+        <link href="~/eliteadmin/university/dist/css/pages/dashboard1.css" rel="stylesheet">
+        <link href="~/eliteadmin/university/dist/css/pages/file-upload.css" rel="stylesheet">
+        <link href="~/eliteadmin/assets/node_modules/icheck/skins/all.css" rel="stylesheet">
+        <link href="~/eliteadmin/university/dist/css/pages/form-icheck.css" rel="stylesheet">
+        <link href="~/eliteadmin/university/dist/css/pages/tab-page.css" rel="stylesheet">
+    </environment>
+    <environment exclude="Development">
+        <link href="~/eliteadmin/assets/node_modules/morrisjs/morris.css" rel="stylesheet">
+        <link href="~/eliteadmin/assets/node_modules/toast-master/css/jquery.toast.css" rel="stylesheet">
+        <link href="~/eliteadmin/assets/node_modules/morrisjs/morris.css" rel="stylesheet">
+        <link href="~/eliteadmin/university/dist/css/style.min.css" rel="stylesheet">
+        <link href="~/eliteadmin/university/dist/css/pages/dashboard1.css" rel="stylesheet">
+        <link href="~/eliteadmin/university/dist/css/pages/file-upload.css" rel="stylesheet">
+        <link href="~/eliteadmin/assets/node_modules/icheck/skins/all.css" rel="stylesheet">
+        <link href="~/eliteadmin/university/dist/css/pages/form-icheck.css" rel="stylesheet">
+        <link href="~/eliteadmin/university/dist/css/pages/tab-page.css" rel="stylesheet">
+    </environment>
+</head>
+<body class="skin-blue fix-header single-column card-no-border fix-sidebar">
+    <div class="preloader">
+        <div class="loader">
+            <div class="loader__figure"></div>
+            <p class="loader__label">International Institute of Management Certification</p>
+        </div>
+    </div>
+    <div id="wrapper">
+        <header class="topbar">
+            <nav class="navbar top-navbar navbar-expand-md navbar-dark">
+                <!-- ============================================================== -->
+                <!-- Logo -->
+                <!-- ============================================================== -->
+                <div class="navbar-header">
+                    <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">
+                        <!-- Logo icon --><b>
+                            <!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
+                            <!-- Dark Logo icon -->
+                        </b>
+                        <!--End Logo icon -->
+                        <span class="hidden-xs" style="font-size:14px"><span class="font-bold" style="font-size:14px">Management </span>Certification</span>
+                    </a>
+                </div>
+                <!-- ============================================================== -->
+                <!-- End Logo -->
+                <!-- ============================================================== -->
+                <div class="navbar-collapse">
+                    <!-- ============================================================== -->
+                    <!-- toggle and nav items -->
+                    <!-- ============================================================== -->
+                    <ul class="navbar-nav mr-auto">
+                        <!-- This is  -->
+                        <li class="nav-item"> <a class="nav-link nav-toggler d-block d-sm-none waves-effect waves-dark" href="javascript:void(0)"><i class="ti-menu"></i></a> </li>
+                        <li class="nav-item"> <a class="nav-link sidebartoggler d-none d-lg-block d-md-block waves-effect waves-dark" href="javascript:void(0)"><i class="icon-menu"></i></a> </li>
+                        <!-- ============================================================== -->
+                        <!-- Search -->
+                        <!-- ============================================================== -->
+                        <li class="nav-item">
+                            <form class="app-search d-none d-md-block d-lg-block">
+                                <input type="text" class="form-control" placeholder="Search & enter">
+                            </form>
+                        </li>
+                    </ul>
+                    <!-- ============================================================== -->
+                    <!-- User profile and search -->
+                    <!-- ============================================================== -->
+                    <ul class="navbar-nav my-lg-0">
+                        <!-- ============================================================== -->
+                        <!-- Mega Menu -->
+                        <!-- ============================================================== -->
+                        <li class="nav-item dropdown mega-dropdown"> <a class="nav-link dropdown-toggle waves-effect waves-dark" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="ti-layout-width-default"></i></a>
+                            <div class="dropdown-menu animated bounceInDown">
+                                <ul class="mega-dropdown-menu row">
+                                    <li class="col-lg-6 col-xlg-2 m-b-30">
+                                        <h1 class="m-b-20">COURSES</h1>
+                                        <!-- CAROUSEL -->
+                                        <a asp-area="" asp-controller="Course" asp-action="Index" class="btn btn-info"><i class="fa fa-bars"></i> VIEW ALL COURSES </a>
+                                        <!-- End CAROUSEL -->
+                                    </li>
+                                    <li class="col-lg-6 m-b-30">
+                                        <h1 class="m-b-20">EVENTS</h1>
+                                        <!-- Accordian -->
+                                        <a asp-area="" asp-controller="" asp-action="" class="btn btn-info"><i class="ti-calendar"></i> VIEW ALL EVENTS </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        <!-- ============================================================== -->
+                        <!-- End Mega Menu -->
+                        <!-- ============================================================== -->
+                        <!-- ============================================================== -->
+                        <!-- User Profile -->
+                        <!-- ============================================================== -->
+                        @await Html.PartialAsync("_LoginPartial")                        
+                        <!-- ============================================================== -->
+                        <!-- End User Profile -->
+                        <!-- ============================================================== -->
+                    </ul>
+                </div>
+            </nav>
+        </header>
+    <div id="main-wrapper">
+        <div class="page-wrapper">
+            <div class="container-fluid">
+                @RenderBody()
+            </div>
+        </div>
+        <footer class="footer">
+            © 2018 - International Institute of Management Certification
+        </footer>
+        <hr />
+
+    </div>
+    <environment include="Development">
+        <script src="~/eliteadmin/assets/node_modules/jquery/jquery-3.2.1.min.js"></script>
+        <!-- Bootstrap popper Core JavaScript -->
+        <script src="~/eliteadmin/assets/node_modules/popper/popper.min.js"></script>
+        <script src="~/eliteadmin/assets/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+        <!-- slimscrollbar scrollbar JavaScript -->
+        <script src="~/eliteadmin/university/dist/js/perfect-scrollbar.jquery.min.js"></script>
+        <!--Wave Effects -->
+        <script src="~/eliteadmin/university/dist/js/waves.js"></script>
+        <!--Menu sidebar -->
+        <script src="~/eliteadmin/university/dist/js/sidebarmenu.js"></script>
+        <!--Custom JavaScript -->
+        <script src="~/eliteadmin/university/dist/js/custom.min.js"></script>
+        <!-- ============================================================== -->
+        <!-- This page plugins -->
+        <!-- ============================================================== -->
+        <!--morris JavaScript -->
+        <script src="~/eliteadmin/assets/node_modules/raphael/raphael-min.js"></script>
+        <script src="~/eliteadmin/assets/node_modules/morrisjs/morris.min.js"></script>
+        <script src="~/eliteadmin/assets/node_modules/jquery-sparkline/jquery.sparkline.min.js"></script>
+        <!-- Popup message jquery -->
+        <script src="~/eliteadmin/assets/node_modules/toast-master/js/jquery.toast.js"></script>
+        <!-- Chart JS -->
+        <script src="~/eliteadmin/university/dist/js/dashboard1.js"></script>
+        </script>
+        <!-- File Upload -->
+        <script src="~/eliteadmin/university/dist/js/pages/jasny-bootstrap.js"></script>
+        <script src="~/eliteadmin/university/dist/js/pages/mask.js"></script>
+        <!-- icheck -->
+        <script src="~/eliteadmin/assets/node_modules/icheck/icheck.min.js"></script>
+        <script src="~/eliteadmin/assets/node_modules/icheck/icheck.init.js"></script>
+        <!-- nestable -->
+        <script src="~/eliteadmin/assets/node_modules/nestable/jquery.nestable.js"></script>
+        <script type="text/javascript">
+        $(document).ready(function() {
+            // Nestable
+            var updateOutput = function(e) {
+                var list = e.length ? e : $(e.target),
+                    output = list.data('output');
+                if (window.JSON) {
+                    output.val(window.JSON.stringify(list.nestable('serialize'))); //, null, 2));
+                } else {
+                    output.val('JSON browser support required for this demo.');
+                }
+            };
+
+            $('#nestable2').nestable({
+                group: 1
+            }).on('change', function() {
+                $('li').each(function(i) {
+                    if($(this).attr('class') == "dd-item") {
+                        $(this).data('id', i + 1);
+                        $(this).attr('data-id', i + 1);
+                    }
+                });
+            });
+            
+        });
+        </script>
+    </environment>
+    <environment exclude="Development">
+        <script src="~/eliteadmin/assets/node_modules/jquery/jquery-3.2.1.min.js"></script>
+        <script src="~/eliteadmin/assets/node_modules/popper/popper.min.js"></script>
+        <script src="~/eliteadmin/assets/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+        <script src="~/eliteadmin/university/dist/js/perfect-scrollbar.jquery.min.js"></script>
+        <script src="~/eliteadmin/university/dist/js/waves.js"></script>
+        <script src="~/eliteadmin/university/dist/js/sidebarmenu.js"></script>
+        <script src="~/eliteadmin/university/dist/js/custom.min.js"></script>
+        <script src="~/eliteadmin/assets/node_modules/raphael/raphael-min.js"></script>
+        <script src="~/eliteadmin/assets/node_modules/morrisjs/morris.min.js"></script>
+        <script src="~/eliteadmin/assets/node_modules/jquery-sparkline/jquery.sparkline.min.js"></script>
+        <script src="~/eliteadmin/assets/node_modules/toast-master/js/jquery.toast.js"></script>
+        <script src="~/eliteadmin/university/dist/js/dashboard1.js"></script>
+        <script src="~/eliteadmin/university/dist/js/pages/jasny-bootstrap.js"></script>
+        <script src="~/eliteadmin/university/dist/js/pages/mask.js"></script>
+        <script src="~/eliteadmin/assets/node_modules/icheck/icheck.min.js"></script>
+        <script src="~/eliteadmin/assets/node_modules/icheck/icheck.init.js"></script>
+        <script src="~/eliteadmin/assets/node_modules/nestable/jquery.nestable.js"></script>
+    </environment>
+
+    @RenderSection("Scripts", required: false)
+    </div>
+</body>
+</html>

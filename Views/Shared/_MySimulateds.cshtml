@@ -1,0 +1,21 @@
+@model EnrollmentViewModel
+
+<div class="row">
+    @foreach (var course in this.Model.Courses) {
+        <div class="col-md-3">
+            <img class="img-responsive" alt="user" src="@course.imgSrc">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">@course.CourseName</h5>
+                    <div class="d-flex no-block align-items-center">
+                        <span><i class="ti-money"></i> Price: @course.Price</span>
+                    </div>
+                    <div class="d-flex no-block align-items-center p-t-10">
+                        <span><i class="ti-user"></i> Professor Name: @course.ProfessorName</span>
+                    </div>
+                    @Html.ActionLink("Start Simulation", "Simulacao", "Simulacao", new {idCourse = @course.idCourse}, new { @class="btn btn-success btn-rounded waves-effect waves-light m-t-30"})
+                </div>
+            </div>
+        </div>
+    }
+</div>

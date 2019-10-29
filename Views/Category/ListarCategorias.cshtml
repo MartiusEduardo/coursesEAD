@@ -1,0 +1,26 @@
+@model List<Simulacao.Models.Category>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-body">
+                @Html.ActionLink("Back", "Dashboard", "Home", new {}, new { @class="btn btn-default"}) @Html.ActionLink("Add category", "CreatingCategory", new {}, new { @class="btn btn-primary"})
+                <p></p>
+                <table class="table table-bordered table-striped table-hover">
+                    <tr class="text-nowrap tb-titulo-azul-branco">
+                        <th class="text-center" colspan="4">Categories</th>
+                    </tr>
+                    @foreach (var category in this.Model) {
+                        <tr class="text-nowrap">
+                            <col width="50%">
+                            <col width="100%">
+                            <td style="background-color: white">@category.Name</td>
+                            <td style="background-color: white">@category.Description</td>
+                            <td style="background-color: white" class="text-center">@Html.ActionLink("Edit", "GetCategoryToUpdate", new { idCategory = @category.idCategory}, new { @class="btn btn-warning"})</td>
+                            <td style="background-color: white" class="text-center">@Html.ActionLink("Delete", "DeleteCategory", new { idCategory = @category.idCategory}, new { @class="btn btn-danger", onclick="return confirm('Are you sure you want to delete the category and all topics of the category?');"})</td>
+                        </tr>
+                    }
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

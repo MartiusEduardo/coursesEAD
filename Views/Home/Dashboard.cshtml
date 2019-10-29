@@ -1,0 +1,71 @@
+<html>
+    <body>
+        <div class="row page-titles">
+            <div class="col-md-5 align-self-center">
+                <h4 class="text-themecolor">Dashboard</h4>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title text-uppercase"><a asp-area="" asp-controller="Course" asp-action="listarCursos">Courses</a></h5>
+                        <div class="text-right"> <span class="text-muted">Quantity</span>
+                            <h2> @ViewData["numCursos"]</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title text-uppercase"><a asp-area="" asp-controller="MaterialEstudo" asp-action="Index">Study Materials</a></h5>
+                        <div class="text-right"> <span class="text-muted">Quantity</span>
+                            <h2> @ViewData["numMaterial"]</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title text-uppercase"><a asp-area="" asp-controller="Questao" asp-action="PerguntasArea">Questions</a></h5>
+                        <div class="text-right"> <span class="text-muted">Quantity</span>
+                            <h2> @ViewData["numQuestoes"]</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title text-uppercase"><a asp-area="" asp-controller="Group" asp-action="Index">Groups of Forum</a></h5>
+                        <div class="text-right"> <span class="text-muted">Quantity</span>
+                            <h2> @ViewData["numGrupos"]</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title text-uppercase"><a asp-area="" asp-controller="Category" asp-action="ListarCategorias">Categories of Forum</a></h5>
+                        <div class="text-right"> <span class="text-muted">Quantity</span>
+                            <h2> @ViewData["numCategorias"]</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title text-uppercase"><a asp-area="" asp-controller="User" asp-action="listarUsuarios">Users</a></h5>
+                        <div class="text-right"> <span class="text-muted">Quantity</span>
+                            <h2> @ViewData["numUsuarios"]</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

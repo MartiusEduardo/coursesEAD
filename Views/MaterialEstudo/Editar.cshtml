@@ -1,0 +1,68 @@
+@model MaterialEstudoViewModel
+
+@await Html.PartialAsync("_StatusMessage", Model.StatusMessage)
+
+@{
+    <script src="../js/ckeditor/ckeditor.js"></script>
+    <script charset="utf-8" src="https://ucarecdn.com/libs/widget/3.6.0/uploadcare.full.min.js"></script>
+    <script>
+        UPLOADCARE_PUBLIC_KEY = 'f76861cb9bed0b90d168';
+    </script>
+}
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                @Html.ActionLink("Back", "ListarMaterial", "MaterialEstudo", new {idCourse = @Model.Course.idCourse, idSubarea = @Model.Subarea.idSubarea}, new { @class="btn btn-default"})
+                <p></p>
+                @using (Html.BeginForm("UpdateMaterial", "MaterialEstudo", FormMethod.Post, new { @class = "form-horizontal form-material", role = "form" })) {
+                    <div asp-validation-summary="All" class="text-danger"></div>
+                    <input asp-for="MaterialEstudo.idMaterialEstudo" type="hidden" class="form-control form-control-line">
+                    <input asp-for="MaterialEstudo.idArea" type="hidden" class="form-control form-control-line">
+                    <input asp-for="MaterialEstudo.idSubarea" type="hidden" class="form-control form-control-line">
+                    <div class="form-group">
+                        <label class="col-md-12">Course</label>
+                        <div class="col-md-12">
+                            <input type="text" placeholder="@Model.Course.CourseName" class="form-control form-control-line" disabled>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-12">Area</label>
+                        <div class="col-md-12">
+                            <input type="text" placeholder="@Model.Area.NomeArea" class="form-control form-control-line" disabled>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-12">Subarea</label>
+                        <div class="col-md-12">
+                            <input type="text" placeholder="@Model.Subarea.NomeSubarea" class="form-control form-control-line" disabled>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-12" asp-for="MaterialEstudo.Titulo"></label>
+                        <div class="col-md-12">
+                            <input asp-for="MaterialEstudo.Titulo" type="text" class="form-control form-control-line">
+                            <span asp-validation-for="MaterialEstudo.Titulo" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-12" asp-for="MaterialEstudo.DescricaoConteudo"></label>
+                        <div class="col-md-12">
+                            <textarea asp-for="MaterialEstudo.DescricaoConteudo" id="DescricaoConteudo" class="form-control form-control-line"></textarea>
+                            <script>
+                                CKEDITOR.replace( 'DescricaoConteudo', {
+                                    extraPlugins: 'dialogui,dialog,a11yhelp,dialogadvtab,basicstyles,bidi,blockquote,notification,button,toolbar,clipboard,panelbutton,panel,floatpanel,colorbutton,colordialog,templates,menu,contextmenu,copyformatting,div,resize,elementspath,enterkey,entities,popup,filetools,filebrowser,find,fakeobjects,flash,floatingspace,listblock,richcombo,font,forms,format,horizontalrule,htmlwriter,iframe,wysiwygarea,image,indent,indentblock,indentlist,smiley,justify,menubutton,language,link,list,liststyle,magicline,maximize,newpage,pagebreak,pastetext,pastefromword,preview,print,removeformat,save,selectall,showblocks,showborders,sourcearea,specialchar,scayt,stylescombo,tab,table,tabletools,tableselection,undo,lineutils,widgetselection,widget,notificationaggregator,uploadwidget,uploadimage,wsc,chart,pbckcode,uploadcare,FMathEditor',
+                                    height: 400,
+                                    uploadcare: {publicKey: 'f76861cb9bed0b90d168'}
+                                } );
+                            </script>
+                            <span asp-validation-for="MaterialEstudo.DescricaoConteudo" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <button onclick="return confirm('Are you sure you want to update the courseware?');" type="submit" class="btn btn-success"> <i class="fa fa-check"></i> Save</button>
+                }
+            </div>
+        </div>
+    </div>
+</div>

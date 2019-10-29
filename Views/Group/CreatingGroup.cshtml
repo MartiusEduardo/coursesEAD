@@ -1,0 +1,23 @@
+<html>
+    <body>
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        @Html.ActionLink("Back", "Index", "Group", new {}, new { @class="btn btn-default"})
+                        <p></p>
+                        @using (Html.BeginForm("CreateGroup", "Group", "POST")) {
+                            <table class="table table-bordered table-striped" align="center">
+                                <tr><td>@Html.Label("Name: ") @Html.TextBox("Name", "", new {size="60"})</td></tr>
+                                <tr><td>@Html.Label("Description: ")</td></tr>
+                                <tr><td>@Html.TextArea("Description", "", new {cols="150"})</td></tr>
+                            </table>
+                            <p style="color:red">@ViewData["Erro"]</p>
+                            <input onclick="return confirm('Are you sure you want to create a new group?');" type="submit" value="Create" class="btn btn-primary"/>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

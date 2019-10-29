@@ -1,0 +1,30 @@
+@model List<Simulacao.Models.Course>
+
+<html>
+    <body>
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        @Html.ActionLink("Back", "Dashboard", "Home", new {}, new { @class="btn btn-default"}) <a href="@Url.Action("inserirCurso", "Course")" type="button" class="btn btn-info"><i class="fa fa-plus-circle"></i> Add Course</a>
+                        <p></p>
+                        <table class="table table-bordered table-striped table-hover">
+                            <tr class="text-nowrap tb-titulo-azul-branco">
+                                <th class="text-center" colspan="4">Courses</th>
+                            </tr>
+                            @foreach (var course in this.Model) {
+                                <tr class="text-nowrap">
+                                    <col width="100%">
+                                    <td style="background-color: white">@course.CourseName</td>
+                                    <td style="background-color: white" class="text-center">@Html.ActionLink("See Details", "CourseInfo", new { idCourse = @course.idCourse}, new { @class="btn btn-primary"})</td>
+                                    <td style="background-color: white" class="text-center">@Html.ActionLink("Edit", "GetCourseToUpdate", new { idCourse = @course.idCourse}, new { @class="btn btn-warning"})</td>
+                                    <td style="background-color: white" class="text-center">@Html.ActionLink("Delete", "DeletarCurso", new { idCourse = @course.idCourse}, new { @class="btn btn-danger", onclick="return confirm('Are you sure you want to delete the course?');"})</td>
+                                </tr>
+                            }
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

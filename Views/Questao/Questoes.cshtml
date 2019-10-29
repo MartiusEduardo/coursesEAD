@@ -1,0 +1,34 @@
+@model List<Simulacao.Models.Questao>
+<html>
+    <body>
+        <div class="row page-titles">
+            <div class="col-md-5 align-self-center">
+                <h4 class="text-themecolor">Questions</h4>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        @Html.ActionLink("Back", "PerguntasArea", "Questao", new {}, new { @class="btn btn-default"}) <a href="@Url.Action("inserirPergunta", "Questao", new {idCourse = @ViewData["idCourse"], idSubarea = @ViewData["idSubarea"]})" type="button" class="btn btn-info"><i class="fa fa-plus-circle"></i> Add Question</a>
+                        <p></p>
+                        <table class="table table-bordered table-striped table-hover">
+                            <tr class="text-nowrap tb-titulo-azul-branco">
+                                <th class="text-center" colspan="4">Questions</th>
+                            </tr>
+                            @foreach (var questao in this.Model) {
+                                <tr class="text-nowrap tb-linha-fundo">
+                                    <col width="100%">
+                                    <td style="background-color: white">@questao.Pergunta</td>
+                                    <td class="text-center" style="background-color: white">@Html.ActionLink("See Details", "VerDetalhes", new { idQuestao = @questao.idQuestao}, new { @class="btn btn-primary"})</td>
+                                    <td class="text-center" style="background-color: white">@Html.ActionLink("Edit", "GetQuestaoToUpdate", new { idQuestao = @questao.idQuestao}, new { @class="btn btn-warning"})</td>
+                                    <td class="text-center" style="background-color: white">@Html.ActionLink("Delete", "DeletarQuestao", new { idQuestao = @questao.idQuestao}, new { @class="btn btn-danger", onclick="return confirm('Are you sure you want to delete the question?');"})</td>
+                                </tr>
+                            }
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

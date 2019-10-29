@@ -1,0 +1,31 @@
+@if (@ViewData["NenhumCurso"] == "1") {    
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">You are not enrolled in any courses.</h5>
+        </div>
+    </div>
+} else {
+    <div class="card">
+        <div class="card-body p-b-0">
+            <ul class="nav nav-tabs customtab2" role="tablist">
+                <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#mycourses" role="tab"><span class="hidden-sm-up"><i class="ti-book"></i></span> <span class="hidden-xs-down">My Courses</span></a> </li>
+                <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#simulateds" role="tab"><span class="hidden-sm-up"><i class="ti-user"></i></span> <span class="hidden-xs-down">My Simulateds</span></a> </li>
+                <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#exams" role="tab"><span class="hidden-sm-up"><i class="ti-email"></i></span> <span class="hidden-xs-down">My Exams</span></a> </li>
+            </ul>
+            <!-- Tab panes -->
+            <div class="tab-content">
+                <div class="tab-pane active" id="mycourses" role="tabpanel">
+                    <div class="p-20">
+                        @await Html.PartialAsync("_MyCoursesPartial")
+                    </div>
+                </div>
+                <div class="tab-pane  p-20" id="simulateds" role="tabpanel">
+                    @await Html.PartialAsync("_MySimulateds")
+                </div>
+                <div class="tab-pane p-20" id="exams" role="tabpanel">
+                    @await Html.PartialAsync("_MyExams")
+                </div>
+            </div>
+        </div>
+    </div>
+}

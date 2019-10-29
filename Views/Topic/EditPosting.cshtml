@@ -1,0 +1,37 @@
+@model Simulacao.Models.Posting
+@{
+    <script src="../js/ckeditor/ckeditor.js"></script>
+    <script>
+        UPLOADCARE_PUBLIC_KEY = 'f76861cb9bed0b90d168';
+    </script>
+}
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                @Html.ActionLink("Back", "TopicDetails", "Topic", new {idTopic = @Model.idTopic}, new { @class="btn btn-default"})
+                <p></p>
+                @using (Html.BeginForm("EditPosting", "Topic", FormMethod.Post, new { @class = "form-horizontal form-material", role = "form"})) {
+                @Html.HiddenFor(t => t.idPosting)
+                @Html.HiddenFor(t => t.idTopic)
+                @Html.HiddenFor(t => t.idUser)
+                <div class="form-group">
+                    <label class="col-md-12" asp-for="Message"></label>
+                    <div class="col-md-12">
+                        <textarea asp-for="Message" id="edit" class="form-control form-control-line"></textarea>
+                        <script>
+                            CKEDITOR.replace( 'edit', {
+                                extraPlugins: 'dialogui,dialog,a11yhelp,dialogadvtab,basicstyles,bidi,blockquote,notification,button,toolbar,clipboard,panelbutton,panel,floatpanel,colorbutton,colordialog,templates,menu,contextmenu,copyformatting,div,resize,elementspath,enterkey,entities,popup,filetools,filebrowser,find,fakeobjects,flash,floatingspace,listblock,richcombo,font,forms,format,horizontalrule,htmlwriter,iframe,wysiwygarea,image,indent,indentblock,indentlist,smiley,justify,menubutton,language,link,list,liststyle,magicline,maximize,newpage,pagebreak,pastetext,pastefromword,preview,print,removeformat,save,selectall,showblocks,showborders,sourcearea,specialchar,scayt,stylescombo,tab,table,tabletools,tableselection,undo,lineutils,widgetselection,widget,notificationaggregator,uploadwidget,uploadimage,wsc,chart,pbckcode,uploadcare,FMathEditor',
+                                height: 400
+                            } );
+                        </script>
+                        <span asp-validation-for="Message" class="text-danger"></span>
+                    </div>
+                </div>
+                @Html.Hidden("DatePublication", @DateTime.Today)
+                <button onclick="return confirm('Are you sure you want to update the posting?');" type="submit" class="btn btn-success"> <i class="fa fa-check"></i> Save</button>
+                }
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,74 @@
+@model CourseInfoViewModel
+
+@inject UserManager<ApplicationUser> UserManager
+@{ int page = 0; }
+<div class="row page-titles">
+    <div class="col-md-5 align-self-center">
+        <h4 class="text-themecolor">Start Course</h4>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12 col-xs-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-3 border-right"> <strong>Course Name</strong>
+                        <br>
+                        <p class="text-muted">@Html.DisplayFor(c => c.Course.CourseName)</p>
+                    </div>
+                    <div class="col-md-3 border-right"> <strong>Course Price</strong>
+                        <br>
+                        <p class="text-muted">@Html.DisplayFor(c => c.Course.Price)</p>
+                    </div>
+                    <div class="col-md-3 border-right"> <strong>Professor Name</strong>
+                        <br>
+                        <p class="text-muted">@Html.DisplayFor(c => c.Course.ProfessorName)</p>
+                    </div>
+                    <div class="col-md-3"> <strong>Difficulty</strong>
+                        <br>
+                        <p class="text-muted">Advanced</p>
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-md-12">
+                        <p>@Html.Raw(@Model.Course.About)</p>
+                    </div>
+                </div>
+                <hr>
+                <div class="row p-b-15">
+                    <div class="col-md-12">
+                        @foreach (var area in this.Model.Areas) {
+                        <div id="accordion1" role="tablist" aria-multiselectable="true">
+                            <div class="card m-b-0">
+                                <div class="card-header" role="tab" id="headingOne1">
+                                    <h5 class="mb-0">
+                                    <a class="link" data-toggle="collapse" data-parent="#accordion1" href="#@area.idArea" aria-expanded="true" aria-controls="collapseOne">
+                                        @area.NomeArea
+                                    </a>
+                                    </h5>
+                                </div>
+                                <div id="@area.idArea" class="collapse show" role="tabpanel" aria-labelledby="headingOne1">
+                                    <div class="card-body">
+                                        <ul class="list-icons">
+                                        @foreach (var subarea in this.Model.PaginatedSubareas) {
+                                            if (@area.idArea == @subarea.idArea) {
+                                                <li>@Html.ActionLink(@subarea.NomeSubarea, "Course", "Enrollment", new {idCourse = @area.idCourse, page = @subarea.Page})</li>
+                                            }
+                                        }
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        }
+                    </div>
+                </div>
+                <hr>
+                <div class="row text-center p-10">
+                    @Html.ActionLink("Start Course", "Course", "Enrollment", new {idCourse = @Model.Areas[0].idCourse}, new { @class="btn btn-info btn-lg"})
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

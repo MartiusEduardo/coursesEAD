@@ -1,0 +1,87 @@
+﻿@model RegisterViewModel
+@inject SignInManager<ApplicationUser> SignInManager
+@{
+    ViewData["Title"] = "Home Page";
+}
+@if (SignInManager.IsSignedIn(User)) {
+	<div class="row page-titles">
+		<div class="col-md-5 align-self-center">
+			<h4 class="text-themecolor">My Courses</h4>
+		</div>
+	</div>
+} else {
+	<!-- Courses -->
+	<div class="home">
+		<div class="home_background" style="background-image: url(lingua/images/index_background.jpg);"></div>
+		<div class="home_content">
+			<div class="container">
+				<div class="row">
+					<div class="col text-center">
+						<h1 class="home_title">Get Your Certification Easily</h1>
+						<div class="home_button trans_200"><a asp-area="" asp-controller="Account" asp-action="Register">get started</a></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	@await Html.PartialAsync("_CoursesPartial")
+	@await Html.PartialAsync("_TutorsPartial")
+
+	<!-- Register -->
+
+	<div class="register">
+		<div class="container">
+			<div class="row">
+				
+				<!-- Register Form -->
+
+				<div class="col-lg-6">
+					<div class="register_form_container">
+						<div class="register_form_title">Courses For Free</div>
+						<form asp-route-returnUrl="@ViewData["ReturnUrl"]" method="post">
+							<div class="row register_row">
+								<div class="col-lg-12 register_col">
+									<input asp-for="FullName" class="form_input" placeholder="Full Name" required="required">
+									<span asp-validation-for="FullName" class="text-danger"></span>
+								</div>
+								<div class="col-lg-6 register_col">
+									<input asp-for="UserName" class="form_input" placeholder="User Name" required="required">
+									<span asp-validation-for="UserName" class="text-danger"></span>
+								</div>
+								<div class="col-lg-6 register_col">
+									<input asp-for="Email" class="form_input" placeholder="Email" required="required">
+									<span asp-validation-for="Email" class="text-danger"></span>
+								</div>
+								<div class="col-lg-6 register_col">
+									<input asp-for="Password" class="form_input" placeholder="Password">
+									<span asp-validation-for="Password" class="text-danger"></span>
+								</div>
+								<div class="col-lg-6 register_col">
+									<input asp-for="ConfirmPassword" class="form_input" placeholder="Confirm password">
+									<span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+								</div>
+								<div class="col">
+									<button type="submit" class="form_button trans_200">get it now</button>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+				@section Scripts {
+					@await Html.PartialAsync("_ValidationScriptsPartial")
+				}
+
+				<!-- Register Timer -->
+
+				<div class="col-lg-6">
+					<div class="register_timer_container">
+						<div class="register_timer_title">Register Now</div>
+						<div class="register_timer_text">
+							<p>By creating an account with IIMC, you agree to abide by our IIMC Terms of Service and Honor Code and agree to our Privacy Policy.</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+}

@@ -1,0 +1,28 @@
+@model List<Simulacao.Models.Group>
+<html>
+    <body>
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        @Html.ActionLink("Back", "Dashboard", "Home", new {}, new { @class="btn btn-default"}) @Html.ActionLink("Add group", "CreatingGroup", new {}, new { @class="btn btn-primary"})
+                        <p></p>
+                        <table class="table table-bordered table-striped table-hover">
+                            <tr class="text-nowrap tb-titulo-azul-branco">
+                                <th class="text-center" colspan="4">Groups</th>
+                            </tr>
+                            @foreach (var group in this.Model) {
+                                <tr class="text-nowrap">
+                                    <td style="background-color: white">@group.Name</td>
+                                    <td style="background-color: white">@group.Description</td>
+                                    <td style="background-color: white" class="text-center">@Html.ActionLink("Edit", "GetGroupToUpdate", new { idGroup = @group.idGroup}, new { @class="btn btn-warning"})</td>
+                                    <td style="background-color: white" class="text-center">@Html.ActionLink("Delete", "DeleteGroup", new { idGroup = @group.idGroup}, new { @class="btn btn-danger", onclick="return confirm('Are you sure you want to delete the group, all categories and all topics of this group?');"})</td>
+                                </tr>
+                            }
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

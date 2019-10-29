@@ -1,0 +1,27 @@
+@model Simulacao.Models.Category
+<html>
+    <body>
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        @Html.ActionLink("Back", "ListarCategorias", "Category", new {}, new { @class="btn btn-default"})
+                        <p></p>
+                        @using (Html.BeginForm("UpdateCategory", "Category", "POST")) {
+                            <table class="table table-bordered table-striped" align="center">
+                                @Html.HiddenFor(c => c.idCategory)
+                                @Html.HiddenFor(c => c.idGroup)
+                                <tr><td>@Html.Label("Name: ") @Html.TextBoxFor(g => g.Name, new {size = "130"})</td></tr>
+                                <tr><td>@Html.Label("Description: ")</td></tr>
+                                <tr><td>@Html.TextAreaFor(g => g.Description, new {cols = "130"})</td></tr>
+                            </table>
+                            <p></p>
+                            <p style="color:red">@ViewData["Erro"]</p>
+                            <input onclick="return confirm('Are you sure you want to update the category?');" type="submit" value="Save" class="btn btn-primary"/>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

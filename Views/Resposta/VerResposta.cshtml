@@ -1,0 +1,20 @@
+@model Simulacao.Models.Resposta
+<html>
+    <body>
+        <div class="container">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        @Html.ActionLink("Back", "GetQuestaoToUpdate", "Questao", new {idQuestao = @Model.idQuestao}, new { @class="btn btn-default"})
+                        <p></p>
+                        <table style="width:100%" class="table table-bordered" align="center">
+                            <tr class="tb-titulo-azul-branco"><td colspan="3">@Html.Label("Answer: ") @Model.NomeResposta</td></tr>
+                            <tr><td>@Html.Label("Correct? ") @Model.Correta</td></tr>
+                            <tr><td>@Html.Label("Explanation: ") @Model.Explicacao</td></tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,18 @@
+@model Simulacao.Models.MaterialEstudoViewModel
+<html>
+    <body>
+        <h1>@ViewData["NomeArea"]</h1>
+        <dl class="row">
+            @foreach (var subarea in this.Model.Subareas) {
+            <dt class="col-sm-5" style="color:black;">@subarea.NomeSubarea</dt>
+            <dd class="col-sm-7">
+                @foreach (var material in this.Model.MateriaisEstudo) {
+                    @if (@subarea.idSubarea == @material.idSubarea) {
+                        <p>@material.Titulo</p>
+                    }
+                }
+            </dd>
+            }
+        </dl>
+    </body>
+</html>

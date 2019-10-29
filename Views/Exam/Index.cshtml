@@ -1,0 +1,192 @@
+@model Simulacao.Models.SimuladoViewModel
+@{
+    var nextDisabled = !Model.Questoes.HasNextPage ? "display: none;" : "";
+    var finalizarSimulado = !Model.Questoes.HasNextPage ? "" : "display: none;";
+
+    <script>
+        sessionStorage
+        var contarAcertadas;
+        var questoesAcertadas;
+        var valorQuestao;
+        function mudarPagina(pagina) {
+            document.getElementById("page").setAttribute("value", pagina);
+            document.getElementById("segundos").setAttribute("value", segundos);
+        }
+        function responder(opcaoObj) {
+            document.getElementById("confirmarResposta").setAttribute("style", "");
+            document.getElementById("cancelarResposta").setAttribute("style", "");
+            valorQuestao = opcaoObj.value;
+        }
+        function respostaConfirmada() {
+            var idCorreta = @ViewData["idRespostaCorreta"];
+            if (valorQuestao == @ViewData["idRespostaCorreta"]) {
+                document.getElementById("img" + idCorreta).setAttribute("src", "../images/resposta_certa.png");
+                document.getElementById("img" + idCorreta).setAttribute("height", "18");
+                document.getElementById("img" + idCorreta).setAttribute("width", "30");
+                if (sessionStorage[0] != undefined) {
+                    sessionStorage[0]++;
+                } else {
+                    sessionStorage[0] = 1;
+                }
+            } else {
+                document.getElementById("img" + valorQuestao).setAttribute("src", "../images/resposta_errada.png");
+                document.getElementById("img" + valorQuestao).setAttribute("height", "18");
+                document.getElementById("img" + valorQuestao).setAttribute("width", "30");
+                document.getElementById("img" + idCorreta).setAttribute("src", "../images/resposta_certa.png");
+                document.getElementById("img" + idCorreta).setAttribute("height", "18");
+                document.getElementById("img" + idCorreta).setAttribute("width", "30");
+            }
+            document.getElementById("confirmarResposta").setAttribute("style", "display: none;");
+            document.getElementById("cancelarResposta").setAttribute("style", "display: none;");
+            document.getElementById("explicacao").setAttribute("style", "");
+            var table = document.getElementById('tabelaRespostas');
+            var inputs = table.getElementsByTagName('INPUT');
+            for (var i = 0; i <= inputs.length; i++) {
+                inputs[i].disabled = true;
+            }
+        }
+        function respostaCancelada() {
+            document.getElementById("confirmarResposta").setAttribute("style", "display: none;");
+            document.getElementById("cancelarResposta").setAttribute("style", "display: none;");
+        }
+        function finalizar() {
+            document.getElementById("questoesAcertadas").setAttribute("value", sessionStorage[0]);
+            document.getElementById("tempoFinalizado").setAttribute("value", segundos);
+            para();
+        }
+        //-------------------------------------------------------------------------------
+        //CRONÔMETRO
+        //-------------------------------------------------------------------------------
+        var startTime = 0;
+        var start = 0;
+        var end = 0;
+        var diff = 0;
+        var timerID = 0;
+
+        window.onload = function() {
+            chronoStart('cronometro');
+        };
+
+        function chrono(chronotime){
+            end  = new Date();
+            diff = end - start;
+            diff = new Date(diff);
+            
+            var msec = diff.getMilliseconds();
+            var sec  = diff.getSeconds();
+            var min  = diff.getMinutes();
+            var hr   = diff.getHours()-21;
+            
+            if (min < 10) {
+                min = "0" + min;
+            }
+            if (sec < 10) {
+                sec = "0" + sec;
+            }
+            if(msec < 10) {
+                msec = "00" +msec;
+            }
+            else if(msec < 100){
+                msec = "0" +msec;
+            }
+            document.getElementById(chronotime).innerHTML = hr + ":" + min + ":" + sec;
+            timerID = setTimeout("chrono('"+chronotime+"')", 10);
+        }
+        function formatatempo(segs) {
+            min = 0;
+            hr = 0;
+            while(segs>=60) {
+                if (segs >=60) {
+                    segs = segs-60;
+                    min = min+1;
+                }
+            }
+            while(min>=60) {
+                if (min >=60) {
+                    min = min-60;
+                    hr = hr+1;
+                }
+            }
+            if (hr < 10) {hr = "0"+hr}
+            if (min < 10) {min = "0"+min}
+            if (segs < 10) {segs = "0"+segs}
+            fin = hr+":"+min+":"+segs
+
+            if (segs == 14400) {
+                alert("The time is over, click on finish button.");
+                document.getElementById("proximo").setAttribute("style", "display: none;");
+                document.getElementById("finalizarSimulado").setAttribute("style", "");
+                para();
+                var table = document.getElementById('tabelaRespostas');
+                var inputs = table.getElementsByTagName('INPUT');
+                for (var i = 0; i <= inputs.length; i++) {
+                    inputs[i].disabled = true;
+                }
+            }
+
+            return fin+'<div style="font-size: 16px; padding-bottom: 10px; margin-right: 65px;">Tempo</div>';
+        }
+        var segundos = @ViewData["segundos"]; //início do cronômetro
+        function conta() {
+            segundos++;
+            document.getElementById("cronometro").innerHTML = formatatempo(segundos);
+        }
+        function inicia(){
+            interval = setInterval( function() { conta(); }, 1000 );
+        }
+        function para(){
+            clearInterval(interval);
+        }
+        function zera(){
+            clearInterval(interval);
+            segundos = 0;
+            document.getElementById("cronometro").innerHTML = formatatempo(segundos);
+        }
+        function chronoStart(chronotime){            
+            start = new Date();
+            inicia(chronotime);
+        }
+    </script>
+}
+<html>
+    <body>
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        @using (Html.BeginForm("SimulacaoStep", "Exam", "POST")) {
+                            @Html.Hidden("page")
+                            @Html.Hidden("segundos")
+                            @foreach (var questoes in this.Model.Questoes) {
+                            <table id="tabelaRespostas" class="table table-bordered table-hover">
+                                <thead>
+                                    <tr class="tb-titulo-azul-branco"><th>@Model.Questoes.PageIndex- @questoes.Pergunta</th></tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var respostas in this.Model.RespostasQuestao) {
+                                        <tr><td>
+                                            <input id="@("radio"+respostas.idResposta)" name="respostas" type="radio" value="@respostas.idResposta" onclick="responder(this)" /> @respostas.NomeResposta
+                                            <img id="@("img"+respostas.idResposta)">
+                                        </td></tr>
+                                        @if (@respostas.Correta == true) {
+                                            <tr><td id="explicacao" style="display: none;">Explanation: @respostas.Explicacao</td></tr>
+                                        }
+                                    }
+                                </tbody>
+                            </table>
+                            }
+                        <p></p>
+                        <input id="proximo" onclick="mudarPagina(@(Model.Questoes.PageIndex + 1))" class="btn btn-default" style="@nextDisabled" type="submit" value="Next"/>
+                        <a id="confirmarResposta" onclick="respostaConfirmada()" style="display: none;" class="btn btn-default">Confirm the answer</a>
+                        <a id="cancelarResposta" onclick="respostaCancelada()" style="display: none;" class="btn btn-default">Cancel</a>
+                        @Html.Hidden("questoesAcertadas")
+                        @Html.Hidden("tempoFinalizado")
+                        <input id="finalizarSimulado" onclick="finalizar()" formaction='@Url.Action("finalizarSimulado", "Exam")' class="btn btn-default" style="@finalizarSimulado" type="submit" value="Finish"/>
+                    }
+                    <div style="font-size: 30px; text-align: right;" id="cronometro"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </body>
+</html>
