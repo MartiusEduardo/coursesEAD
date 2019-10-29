@@ -1,0 +1,11 @@
+C:\Users\Eduardo\Documents\Visual Studio 2017\Projects\Simulacao\bin\Debug\netcoreapp2.0\Simulacao.deps.json
+C:\Users\Eduardo\Documents\Visual Studio 2017\Projects\Simulacao\bin\Debug\netcoreapp2.0\Simulacao.runtimeconfig.json
+C:\Users\Eduardo\Documents\Visual Studio 2017\Projects\Simulacao\bin\Debug\netcoreapp2.0\Simulacao.runtimeconfig.dev.json
+C:\Users\Eduardo\Documents\Visual Studio 2017\Projects\Simulacao\bin\Debug\netcoreapp2.0\Simulacao.dll
+C:\Users\Eduardo\Documents\Visual Studio 2017\Projects\Simulacao\bin\Debug\netcoreapp2.0\Simulacao.pdb
+C:\Users\Eduardo\Documents\Visual Studio 2017\Projects\Simulacao\obj\Debug\netcoreapp2.0\Simulacao.csprojAssemblyReference.cache
+C:\Users\Eduardo\Documents\Visual Studio 2017\Projects\Simulacao\obj\Debug\netcoreapp2.0\Simulacao.csproj.CoreCompileInputs.cache
+C:\Users\Eduardo\Documents\Visual Studio 2017\Projects\Simulacao\obj\Debug\netcoreapp2.0\Simulacao.AssemblyInfoInputs.cache
+C:\Users\Eduardo\Documents\Visual Studio 2017\Projects\Simulacao\obj\Debug\netcoreapp2.0\Simulacao.AssemblyInfo.cs
+C:\Users\Eduardo\Documents\Visual Studio 2017\Projects\Simulacao\obj\Debug\netcoreapp2.0\Simulacao.dll
+C:\Users\Eduardo\Documents\Visual Studio 2017\Projects\Simulacao\obj\Debug\netcoreapp2.0\Simulacao.pdb
