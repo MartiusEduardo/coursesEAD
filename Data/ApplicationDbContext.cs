@@ -63,7 +63,7 @@ namespace Simulacao.Data
         public static ApplicationDbContext Create()
         {
             var optionsBuilder = new DbContextOptionsBuilder<ApplicationDbContext>();
-            optionsBuilder.UseMySql("server=mysql08-farm56.kinghost.net;port=3306;database=managementci01;userid=managementci01;pwd=Mci0123;sslmode=none;charset=utf8mb4;");
+            optionsBuilder.UseMySql("server=xxxxxxxxx;port=3306;database=xxxxxx;userid=xxxxxxx;pwd=xxxxxxxxxx;sslmode=none;charset=utf8mb4;");
             //optionsBuilder.UseNpgsql("User ID=managementci;Password=Mci0123;Host=pgsql.managementci.com;Port=5432;Database=managementci;Pooling=true;");
             var dbContext = new ApplicationDbContext(optionsBuilder.Options);
             return dbContext;
